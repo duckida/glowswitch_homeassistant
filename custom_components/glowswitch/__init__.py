@@ -34,8 +34,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         raise ConfigEntryNotReady(f"{address} is not advertising state")
 
     entry.async_on_unload(entry.add_update_listener(_async_update_listener))
-    await hass.config_entries.async_forward_entry_setups(entry, "binary_sensor")
-    await hass.config_entries.async_forward_entry_setups(entry, "light")
+    await hass.config_entries.async_forward_entry_setups(entry, ["binary_sensor", "light"])
+
 
     return True
 
