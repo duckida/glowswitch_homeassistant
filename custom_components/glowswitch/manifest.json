@@ -8,5 +8,6 @@
   "integration_type": "hub",
   "version": "1.0.0",
   "documentation": "https://github.com/duckida/glowswitch",
+  "platforms": ["binary_sensor", "light"],
   "issue_tracker": "https://github.com/duckida/glowswitch/issues"
 }
