@@ -19,7 +19,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
 
     platform = entity_platform.async_get_current_platform()
 
-class GlowSwitch(LightEntity):
+class GlowSwitch(GenericBTEntity, LightEntity):
     """Representation of an Glowswitch Light (on/off only, assumed state)."""
 
     def __init__(self, light) -> None:
