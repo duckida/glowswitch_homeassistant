@@ -15,7 +15,7 @@ from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     """Set up Generic BT device based on a config entry."""
     coordinator: GenericBTCoordinator = hass.data[DOMAIN][entry.entry_id]
-    async_add_entities([GenericBTLight(coordinator)])
+    async_add_entities([GlowSwitch(coordinator)])
 
     platform = entity_platform.async_get_current_platform()
 
