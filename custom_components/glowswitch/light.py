@@ -61,8 +61,9 @@ class GlowSwitch(GenericBTEntity, LightEntity):
         self._attr_name = coordinator.device_name
         self._attr_unique_id = f"{coordinator.address}-glow-switch"
         self._attr_device_info = {
-            "name": coordinator.device_name.
-            "connections": {(CONNECTION_BLUETOOTH, coordinator.address)}
+            "identifiers": {(DOMAIN, coordinator.address)},
+            "connections": {(CONNECTION_BLUETOOTH, coordinator.address)},
+            "name": coordinator.device_name
         }
         self._state = False
 
