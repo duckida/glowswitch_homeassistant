@@ -7,15 +7,17 @@ import voluptuous as vol
 
 # Import the device class from the component that you want to support
 import homeassistant.helpers.config_validation as cv
-from homeassistant.components.light import (ATTR_BRIGHTNESS, PLATFORM_SCHEMA,
-                                            LightEntity)
-from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME
+from homeassistant.components.light import PLATFORM_SCHEMA
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 
-_LOGGER = logging.getLogger(__name__)
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
+    """Set up Generic BT device based on a config entry."""
+    coordinator: GenericBTCoordinator = hass.data[DOMAIN][entry.entry_id]
+    async_add_entities([GenericBTLight(coordinator)])
 
+    platform = entity_platform.async_get_current_platform()
 
 class GlowSwitch(LightEntity):
     """Representation of an Glowswitch Light (on/off only, assumed state)."""
@@ -39,11 +41,11 @@ class GlowSwitch(LightEntity):
         return True
 
     def turn_on(self, **kwargs) -> None:
-        self._light.turn_on()
+        await self._device.write_gatt("12345678-1234-5678-1234-56789abcdef1", '01')
         self._state = True
 
     def turn_off(self, **kwargs) -> None:
-        self._light.turn_off()
+        await self._device.write_gatt("12345678-1234-5678-1234-56789abcdef1", '00')
         self._state = False
 
     def update(self) -> None:
